@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.5/dist/web3.min.js"></script>
+</head>
+
+<!-- Interface for viewing land details -->
+<h3> View Land Details </h3>
+<div id="landDetails"></div>
+<body>
+
+<!-- Interface for requesting land -->
+<form>
+    <label for="landId">Land ID:</label>
+    <input type="number" id="landId"><br><br>
+    <button onclick="requestingLand(event)">Request Land</button>
+</form>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <title>User Registration</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.3.5/dist/web3.min.js"></script>
+    <style>
+        body {
+          text-align: center;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      
+        div {
+          width: 20%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+        }
+      
+        button {
+          width: 10%;
+          margin: 10px 0px 5px 0px;
+        }
+      </style>
+</head>
+<body>
+
+<h3> User Registration </h3>
+
+<form id="userRegistrationForm" method="post" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" id="name"><br><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age"><br><br>
+    <label for="aadhar">Aadhar:</label>
+    <input type="text" id="aadhar"><br><br>
+    <label for="pan">PAN:</label>
+    <input type="text" id="pan"><br><br>
+    <!-- <label for="document">Document:</label> -->
+    <!-- <input type="file" id="document"><br><br> -->
+    <button type="button" onclick="registerAsSeller()">Register as Seller</button>
+    <button type="button" onclick="registerAsBuyer()">Register as Buyer</button>
+</form>
+
+<!-- <script>
+    function registerAsSeller() {
+        const url = 'http://localhost:8000/sellerRegistration';
+        const name = document.getElementById("name").value;
+        const age = document.getElementById("age").value;
+        const aadhar = document.getElementById("aadhar").value;
+        const pan = document.getElementById("pan").value;
+        // Assuming document upload and processing logic here
+        const file = document.getElementById("document").files[0];
+        
+        const sellerData ={
+          'name':name,
+          'age':age,
+          'aadhar':aadhar,
+          'pan':pan,
+          'file':file
+        }
+        console.log(sellerData)
+        jQuery.ajax({
+          url:url,
+          type:'POST',
+          data: sellerData,
+          dataType:JSON,
+          complete:function(response){
+            console.log(response);
+          }
+        })
+
+        // Call smart contract function to register as seller
+        //await contract.methods.registerSeller().send({ from: accounts[0] });
+        //alert("Registered as Seller successfully!");
+    }
+
+    async function registerAsBuyer() {
+        const name = document.getElementById("name").value;
+        const age = document.getElementById("age").value;
+        const aadhar = document.getElementById("aadhar").value;
+        const pan = document.getElementById("pan").value;
+        // Assuming document upload and processing logic here
+
+        // Call smart contract function to register as buyer
+        await contract.methods.registerBuyer().send({ from: accounts[0] });
+        alert("Registered as Buyer successfully!");
+    }
+</script> -->
+</body>
+</html>

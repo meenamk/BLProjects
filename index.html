@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="Cache-control" content="public"> -->
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="./ScriptFiles/LandInspectorRegistration.js"></script>
+    <script src="./ScriptFiles/BuyerRegistration.js"></script>
+    <script src="./ScriptFiles/verifySeller.js"></script>
+    <script src="./ScriptFiles/SellerRegistration.js"></script>
+    <script src="./ScriptFiles/rejectSeller.js"></script>
+    <script src="./ScriptFiles/VerifyBuyer.js"></script>
+    <script src="./ScriptFiles/RejectBuyer.js"></script>
+    <script src="./ScriptFiles/landRegistration.js"></script>
+    <script src="./ScriptFiles/TransferLand.js"></script>
+    <!-- <script src="https://cdn.ethers.io/lib/ethers-5.2.esm.min.js"></script> -->
+
+    <!-- <script src="https://cdn.ethers.io/lib/ethers-5.7.2.umd.min.js"></script> -->
+
+    <title>Land Management</title>
+    <style>
+        body {
+          text-align: center;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+      
+        div {
+          width: 20%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+        }
+      
+        button {
+          width: 100%;
+          margin: 10px 0px 5px 0px;
+        }
+      </style>
+</head>
+<body>
+    <div>
+      
+      <h1>Land Management</h1>
+      <button onclick="userReg()">User Registration</button>
+      <button onclick="addLandIns()">Add Land Inspector</button>
+      <button onclick="verifyOrRejectSeller()">Seller Verification</button>
+      <button onclick="verifyOrRejectBuyer()">Buyer Verification</button>
+      <button onclick="LandReg()">Land Registration</button>
+      <button onclick="viewLand()">View Land Details</button>
+      <button onclick="landTransfer()">Transfer Land</button>
+      <button onclick="requestLand()">Request Land</button>
+    </div>
+    <script>
+      //user registration function
+        function userReg(){
+            const url='http://localhost:8000/userRegistration'
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }
+        function addLandIns(){
+            const url='http://localhost:8000/LandInspectorRegistration';
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }  
+
+        function verifyOrRejectSeller(){
+            const url='http://localhost:8000/verifyOrRejectSeller';
+            console.log("requesting http://localhost:8000/verifyOrRejectSeller");
+            jQuery.ajax({
+              url: url, // The URL to which the request is sent
+              type: 'GET',
+              dataType:'html',              // Type of request to be sent, called as method
+              success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+              },
+              error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+              }
+            });
+        }; 
+      function verifyOrRejectBuyer(){
+            const url='http://localhost:8000/verifyOrRejectBuyer';
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }  
+
+      function LandReg(){
+            const url='http://localhost:8000/landRegistration';
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }  
+
+      //query land data
+      function viewLand(){
+        //event.preventDefault();
+        const url='http://localhost:8000/viewLand';
+        // const landID = document.getElementById("landId").value;
+        // const landData ={'landId':landID};
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            contentType:"application/json",
+            //dataType:"json",
+            //data: JSON.stringify(landData),
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+      };
+
+      function fetchingLandData(event){
+        event.preventDefault();
+        const url = 'http://localhost:8000/fetchLandData';
+        const landID = document.getElementById("landId").value;
+        //const newOwner= document.getElementById("newOwner").value;
+        if(!(/^\d{5}$/.test(landID))){
+          console.log("PID can contain only 5 digit number");
+          document.body.innerHTML+=("<h3>Please enter PID correctly</h3>");
+        }else{
+        const transferData = {
+          "landID":landID,
+        };
+        jQuery.ajax({
+          url:url,
+            type:'POST',
+            contentType:"application/json",
+            dataType:"json",
+            data: JSON.stringify(transferData),
+            complete:function(response){
+              console.log(response.responseJSON);
+              console.log('Land details');
+            }
+          });
+      }
+    }
+    function requestLand(){
+            const url='http://localhost:8000/requestLand'
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }
+
+        function requestingLand(event){
+        event.preventDefault();
+        const url = 'http://localhost:8000/requestingLand';
+        const landID = document.getElementById("landId").value;
+        if(!(/^\d{5}$/.test(landID))){
+          console.log("PID can contain only 5 digit number");
+          document.body.innerHTML+=("<h3>Please enter PID correctly</h3>");
+        }else{
+        const transferData = {
+          "landID":landID,
+        };
+        jQuery.ajax({
+          url:url,
+            type:'POST',
+            contentType:"application/json",
+            dataType:"json",
+            data: JSON.stringify(transferData),
+            complete:function(response){
+              console.log(response.responseJSON);
+              console.log('Land details');
+            }
+          });
+      }
+    }
+
+      function landTransfer(){
+            const url='http://localhost:8000/LandTransfer';
+            jQuery.ajax({
+            url: url, // The URL to which the request is sent
+            type: 'GET',
+            dataType:'html',              // Type of request to be sent, called as method
+            success: function(response) {
+                console.log("Received response is:",response);
+                document.body.innerHTML=response
+            },
+            error: function(xhr, status, error) {
+                console.log("Encountered error is:",error);
+            }
+            });
+        }  
+
+    </script>
+</body>
+</html>
